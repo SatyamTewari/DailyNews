@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.dailynews.R
 import com.example.dailynews.viewmodels.NewsHeadlineViewModel
-import com.example.dailynews.views.components.NewsItem
+import com.example.dailynews.views.composables.NewsItem
 
 @Composable
 fun NewsHeadline(onSearchNewsClick: () -> Unit, onNewsItemClick: (newsTitle: String) -> Unit) {

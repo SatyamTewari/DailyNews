@@ -1,7 +1,5 @@
 package com.example.dailynews.views.screens
 
-import android.util.Log
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,8 +12,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.dailynews.viewmodels.SearchNewsViewModel
-import com.example.dailynews.views.components.EmptyHolder
-import com.example.dailynews.views.components.NewsItem
+import com.example.dailynews.views.composables.EmptyHolder
+import com.example.dailynews.views.composables.NewsItem
 
 @Composable
 fun SearchNews(onclick: (newsTitle: String) -> Unit) {
@@ -24,7 +22,6 @@ fun SearchNews(onclick: (newsTitle: String) -> Unit) {
     val searchKey = rememberSaveable { mutableStateOf("")}
     Column {
         TextField(value = searchKey.value, modifier = Modifier.fillMaxWidth(1f), onValueChange = {
-            Log.d("Testing","key - $it")
             searchKey.value = it
             searchNewsViewModel.searchNewsWithKey(it)
         })

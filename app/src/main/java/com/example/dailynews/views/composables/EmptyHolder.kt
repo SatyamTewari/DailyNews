@@ -1,4 +1,4 @@
-package com.example.dailynews.views.components
+package com.example.dailynews.views.composables
 
 import androidx.compose.runtime.Composable
 
