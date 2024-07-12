@@ -20,9 +20,10 @@ import com.example.dailynews.R
 import com.example.dailynews.models.Article
 
 @Composable
-fun NewsItem(data: Article) {
+fun NewsItem(data: Article, onClick: (newsTitle: String)->Unit) {
     Card(
-        shape = RoundedCornerShape(10.dp)
+        shape = RoundedCornerShape(10.dp),
+        onClick = {onClick(data.title)}
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

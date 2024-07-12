@@ -23,7 +23,7 @@ class NewsHeadlineViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getDailyNews("sports", 1, 5)
+            repository.getDailyNews("sports", 1)
         }
     }
 }

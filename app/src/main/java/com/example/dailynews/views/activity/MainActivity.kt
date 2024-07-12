@@ -14,9 +14,11 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.dailynews.ui.theme.DailyNewsTheme
 import com.example.dailynews.views.screens.NewsDetail
 import com.example.dailynews.views.screens.NewsHeadline
@@ -26,27 +28,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             DailyNewsTheme {
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = {  },
-                            colors = TopAppBarColors(
-                                containerColor = Color.Blue,
-                                scrolledContainerColor = Color.Blue,
-                                navigationIconContentColor = Color.Blue,
-                                titleContentColor = Color.Blue,
-                                actionIconContentColor = Color.Blue
-                            ),
-                            scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-                        )
-                    }
-                ) {
+                Scaffold{
                     Box(modifier = Modifier.padding(it)) {
                         App()
                     }
@@ -57,17 +44,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun App(){
+fun App() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "newsHeadlineScreen"){
-        composable(route = "newsHeadlineScreen"){
-            NewsHeadline()
+    NavHost(navController = navController, startDestination = "newsHeadlineScreen") {
+        composable(route = "newsHeadlineScreen") {
+            NewsHeadline(
+                onSearchNewsClick = {navController.navigate("searchNewsScreen")},
+                onNewsItemClick = {navController.navigate("newsDetailScreen/${it}")}
+            )
         }
-        composable(route = "searchNewsScreen"){
-            SearchNews()
+        composable(route = "searchNewsScreen") {
+            SearchNews{
+                navController.navigate("newsDetailScreen/${it}")
+            }
         }
-        composable(route = "newsDetailScreen"){
-            NewsDetail(title = "random")
+        composable(route = "newsDetailScreen/{newsTitle}",
+            arguments = listOf(
+                navArgument("newsTitle") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            NewsDetail(title = navBackStackEntry.arguments?.getString("newsTitle") ?: "")
         }
     }
 }
