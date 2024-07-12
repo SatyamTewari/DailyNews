@@ -11,8 +11,9 @@ interface NewsAPI {
     suspend fun getDailyNews(
         @Query("apiKey") apiKey: String,
         @Query("category") category: String,
+        @Query("country") country: String,
         @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int,
     ): Response<NewsDataModel>
 
     @GET("everything")
