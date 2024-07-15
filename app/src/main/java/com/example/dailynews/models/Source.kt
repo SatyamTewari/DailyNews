@@ -1,6 +1,8 @@
 package com.example.dailynews.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Source(
-    val id: String = "",
-    val name: String = ""
+    val name: String
 )

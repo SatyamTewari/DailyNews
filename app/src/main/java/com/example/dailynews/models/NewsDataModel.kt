@@ -1,7 +1,10 @@
 package com.example.dailynews.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NewsDataModel(
-    val articles: List<Article> = emptyList(),
-    val status: String? = null,
-    val totalResults: Int = 0
+    val articles: List<Article>,
+    val status: String,
+    val totalResults: Int
 )
